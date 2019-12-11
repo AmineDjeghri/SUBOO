@@ -3,6 +3,7 @@
  */
 package itf;
 
+import java.util.List;
 import java.util.Set;
 
 /** 
@@ -26,7 +27,7 @@ public interface IUnite {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IUnite> getConstructorsList();
+	public List<IUnite> getConstructorsList();
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -34,7 +35,7 @@ public interface IUnite {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IRessource> getCout();
+	public List<IRessource> getCout();
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -42,7 +43,7 @@ public interface IUnite {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IUnite> getPrerequis();
+	public List<IUnite> getPrerequis();
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -58,5 +59,5 @@ public interface IUnite {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IRessource> getRessourceProd();
+	public List<IRessource> getRessourceProd();
 }

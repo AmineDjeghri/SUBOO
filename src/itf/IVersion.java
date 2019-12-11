@@ -3,6 +3,7 @@
  */
 package itf;
 
+import java.util.List;
 import java.util.Set;
 
 /** 
@@ -18,7 +19,7 @@ public interface IVersion {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<Object> getRessources();
+	public List<IRessource> getRessources();
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -34,7 +35,7 @@ public interface IVersion {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IUnite> getUnites();
+	public List<IUnite> getUnites();
 
 	/** 
 	* <!-- begin-UML-doc -->

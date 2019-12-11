@@ -3,6 +3,7 @@
  */
 package itf;
 
+import java.util.List;
 import java.util.Set;
 
 /** 
@@ -21,7 +22,7 @@ public interface ICalculator {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IAction> calculBO(IEtat etatInitial, Integer unite, Integer... ressource);
+	public List<IAction> calculBO(IEtat etatInitial, Integer unite, Integer... ressource);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -31,7 +32,7 @@ public interface ICalculator {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IAction> calculBO(Set<Integer> unites, Integer... ressources);
+	public List<IAction> calculBO(Set<Integer> unites, Integer... ressources);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -48,5 +49,5 @@ public interface ICalculator {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public Set<IAction> VerifierValidite(IAction... BOObjectif);
+	public List<IAction> VerifierValidite(IAction... BOObjectif);
 }
