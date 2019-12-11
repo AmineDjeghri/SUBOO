@@ -3,6 +3,7 @@
  */
 package version;
 
+import bouchons.VersionBouchon;
 import itf.IVersion;
 
 /** 
@@ -17,7 +18,7 @@ public class VersionSingleton {
 	* <!-- end-UML-doc -->
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	private static Version version;
+	private static IVersion version;
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -26,9 +27,8 @@ public class VersionSingleton {
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
 	public static IVersion getIversion() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		if (version == null)
+			version= new VersionBouchon();
+		return version;
 	}
 }

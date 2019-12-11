@@ -21,8 +21,8 @@ public class VersionBouchon implements IVersion{
 		unites.add(new UniteBouchon("Ouvrier", 0));
 		unites.add(new UniteBouchon("Ferme", 1));
 		unites.add(new UniteBouchon("Caserne", 1));
-		unites.add(new UniteBouchon("Arme en Fer", 3));
-		unites.add(new UniteBouchon("Outil en Fer", 3));
+		unites.add(new UniteBouchon("Arme en Fer", 2));
+		unites.add(new UniteBouchon("Outil en Fer", 2));
 		
 		ressources.add(new RessourceBouchon("Nouriture",0));
 		ressources.add(new RessourceBouchon("Bois",0));
@@ -42,8 +42,7 @@ public class VersionBouchon implements IVersion{
 
 	@Override
 	public List<IUnite> getUnites() {
-		// TODO Auto-generated method stub
-		return null;
+		return unites;
 	}
 
 	@Override

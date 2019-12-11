@@ -14,6 +14,7 @@ public class UniteBouchon implements IUnite {
 	public UniteBouchon(String name, int type)
 	{
 		this.name=name;
+		this.type=type;
 	}
 	
 	@Override
