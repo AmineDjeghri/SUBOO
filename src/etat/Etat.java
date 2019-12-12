@@ -9,10 +9,16 @@ import static itf.IVersion.*;
 import static itf.IUnite.*;
 import static itf.IRessource.*;
 import static itf.IAction.*;
+
+import java.util.List;
 import java.util.Set;
+
+import entite.EtatEntite;
 import itf.IEntite;
 import itf.IAction;
 import itf.IRessource;
+import itf.IUnite;
+import itf.IVersion;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -21,124 +27,65 @@ import itf.IRessource;
 * @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
 public class Etat implements IEtat {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
+	
+
+
+	private IAction actionPrecedante;
+	private IUnite nomUnite;
+	private List<IRessource> ressources;
+	private IVersion version;
+	
 	private Etat etatPrecedent;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Set<IEntite> listeEntites;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private IAction action;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Set<Etat> etatSuivant;
+	private List<IEtat> etatsSuivants;
+	private List<IEntite> estComposeDe;
+	
+	
+	
+	
+	
+ 
 
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#setRessources(IRessource... ressources)
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public void setRessources(IRessource... ressources) {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public List<IRessource> getRessources() {
+		return ressources;
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#getRessources()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Set<IRessource> getRessources() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+	public void setRessources(List<IRessource> ressources) {
+		this.ressources = ressources;
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#addAction(IAction action)
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	@Override
 	public void addAction(IAction action) {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+		// TODO Auto-generated method stub
+		
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#getBuildOrder()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Set<IAction> getBuildOrder() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
+	@Override
+	public List<IAction> getBuildOrder() {
+		// TODO Auto-generated method stub
 		return null;
-		// end-user-code
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#getEntite()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Set<IEntite> getEntite() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+	@Override
+	public List<IEntite> getEntite() {
+		// TODO Auto-generated method stub
+		return estComposeDe;
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#getNextsEtats()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Set<IEtat> getNextsEtats() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+	@Override
+	public List<IEtat> getNextsEtats() {
+		return etatsSuivants;
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#addEntite(IEntite entite)
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	@Override
 	public void addEntite(IEntite entite) {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+		estComposeDe.add(entite);
+		
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IEtat#getBackEtat()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	@Override
 	public IEtat getBackEtat() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		return etatPrecedent;
 	}
+	
+	
+	
+
+
+	
+	
+
 }
