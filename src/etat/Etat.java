@@ -10,9 +10,11 @@ import static itf.IUnite.*;
 import static itf.IRessource.*;
 import static itf.IAction.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import action.Action;
 import entite.EtatEntite;
 import itf.IEntite;
 import itf.IAction;
@@ -29,14 +31,15 @@ import itf.IVersion;
 public class Etat implements IEtat {
 
 	
+	
 
-
-	private IAction actionPrecedante;
-	private IUnite nomUnite;
+	
+	private IAction action;
+	private IUnite unite;
 	private List<IRessource> ressources;
 	private IVersion version;
 	
-	private Etat etatPrecedent;
+	private IEtat etatPrecedent;
 	private List<IEtat> etatsSuivants;
 	private List<IEntite> estComposeDe;
 	
@@ -46,6 +49,10 @@ public class Etat implements IEtat {
 	
  
 
+	public Etat(IEtat etatPrecedent) {
+		this.etatPrecedent = etatPrecedent;
+	}
+	
 	public List<IRessource> getRessources() {
 		return ressources;
 	}
@@ -54,14 +61,28 @@ public class Etat implements IEtat {
 	}
 	@Override
 	public void addAction(IAction action) {
-		// TODO Auto-generated method stub
+		
+
+		new Etat(this);
+		this.action=action;
+		etatPrecedent.getNextsEtats().add(this);
+		
+		//la le précedant sera le meme que this :/
+		
+		
+		
 		
 	}
 	@Override
 	public List<IAction> getBuildOrder() {
-		// TODO Auto-generated method stub
-		return null;
+		List<IAction> bo= new ArrayList<>();
+		bo.add(action);
+		if(etatPrecedent!=null)
+			bo.add(etatPrecedent.getBuildOrder().get(0));
+		
+		return bo;
 	}
+	
 	@Override
 	public List<IEntite> getEntite() {
 		// TODO Auto-generated method stub
