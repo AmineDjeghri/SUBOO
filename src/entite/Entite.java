@@ -5,17 +5,25 @@ package entite;
 
 import itf.IEntite;
 import static itf.IUnite.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Set;
 import itf.IUnite;
 
 public class Entite implements IEntite {
-	private ArrayList<Entite> construit = new ArrayList<Entite>();
+	private IEntite construit;
 	private IUnite nomUnite;
 	private Integer tpsRestant;
 	private EtatEntite etatEntite;
 
+	
+	public Entite(IUnite unite) {
+		construit=null;
+		nomUnite=unite;
+		tpsRestant=null;
+		etatEntite=null;
+	}
 	
 	public void setDisponible() {
 		etatEntite=EtatEntite.DISPONIBLE;
@@ -64,8 +72,14 @@ public class Entite implements IEntite {
 
 
 	@Override
-	public void setConstruit(IUnite... construit) {
-		// TODO Auto-generated method stub
+	public void setConstruit(IEntite construit) {
+		this.construit=construit;
 		
+	}
+
+
+	@Override
+	public IEntite getConstruction() {
+		return construit;
 	}
 }

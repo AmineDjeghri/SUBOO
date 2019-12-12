@@ -69,7 +69,7 @@ public interface IEntite {
 	* @param construit
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public void setConstruit(IUnite... construit);
+	public void setConstruit(IEntite construit);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -94,4 +94,6 @@ public interface IEntite {
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
 	public Integer getTempsRestant();
+	
+	public IEntite getConstruction();
 }
