@@ -49,6 +49,10 @@ public class Etat implements IEtat {
 	
  
 
+	public Etat() {
+		
+	}
+
 	public Etat(IEtat etatPrecedent) {
 		this.etatPrecedent = etatPrecedent;
 	}
