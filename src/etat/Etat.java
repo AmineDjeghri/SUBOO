@@ -77,8 +77,9 @@ public class Etat implements IEtat {
 	public List<IAction> getBuildOrder() {
 		List<IAction> bo= new ArrayList<>();
 		bo.add(action);
+		
 		if(etatPrecedent!=null)
-			bo.add(etatPrecedent.getBuildOrder().get(0));
+			bo.addAll(etatPrecedent.getBuildOrder());
 		
 		return bo;
 	}
