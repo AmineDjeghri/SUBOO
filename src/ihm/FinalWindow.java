@@ -3,6 +3,7 @@ package ihm;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -26,19 +27,20 @@ public class FinalWindow extends JFrame {
 		DefaultListModel sl = new DefaultListModel();
 		
 		int time = 0;
-		
+		int i = 1;
 		for(IAction a : actions)
 		{
 			if(a.getConstructedUnite()!=null)
 			{
-				sl.addElement(a.getConstructedUnite().getNom());
+				sl.addElement(i + ": " + a.getConstructedUnite().getNom());
 				time++;
 			}
 			else
 			{
-				sl.addElement("Wait: " + a.getWaitedTime());
+				sl.addElement(i + ": Wait " + a.getWaitedTime());
 				time+=a.getWaitedTime();
 			}
+			i++;
 		}
 		
 		JLabel labelTime = new JLabel("Temps :" + Integer.toString(time));
@@ -46,9 +48,23 @@ public class FinalWindow extends JFrame {
 		JList listAction = new JList(sl);
 		
 		mainPan.setLayout(new BoxLayout(mainPan,BoxLayout.PAGE_AXIS));
+		JPanel pan1 = new JPanel();
 		
-		mainPan.add(labelTime);
-		mainPan.add(listAction);
+		pan1.setLayout(new BoxLayout(pan1, BoxLayout.LINE_AXIS));
+		pan1.add(Box.createHorizontalGlue());
+		pan1.add(labelTime);
+		pan1.add(Box.createHorizontalGlue());
+
+		JPanel pan2 = new JPanel();
+		
+		pan2.setLayout(new BoxLayout(pan2, BoxLayout.LINE_AXIS));
+		pan2.add(Box.createHorizontalGlue());
+		pan2.add(listAction);
+		pan2.add(Box.createHorizontalGlue());
+
+		
+		mainPan.add(pan1);
+		mainPan.add(pan2);
 		
 		this.setContentPane(mainPan);
 		this.setVisible(true);
