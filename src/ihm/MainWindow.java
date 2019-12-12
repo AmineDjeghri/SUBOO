@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import calculator.CalculatorSingleton;
 import itf.IRessource;
 import itf.IUnite;
 import version.VersionSingleton;
@@ -63,7 +64,7 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		
 		
 		comboBoxVersion = new JComboBox<String>();
-		comboBoxVersion.addItem("test000000000");
+		comboBoxVersion.addItem("test000000000"); //TESTS
 		comboBoxVersion.setMaximumSize(comboBoxVersion.getPreferredSize());
 		pan2.add(Box.createHorizontalGlue());
 		pan2.add(comboBoxVersion);
@@ -143,6 +144,11 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 			this.repaint();
 		}
 		
+		if(arg0.getSource() == buttonValideTBO)
+		{
+			validerBO();
+		}
+		
 	}
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
@@ -217,5 +223,31 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 			if(indiceCBTU != -1 && indiceLU !=-1)
 				listUniteTBOValue.get(indiceCBTU).set(indiceLU, v);
 		}
+	}
+	
+	private void validerBO()
+	{
+		ArrayList<IUnite> lUnite = (ArrayList<IUnite>) VersionSingleton.getIversion().getUnites();
+		
+		ArrayList<Integer> lUniteF = new ArrayList<Integer>();
+		for(int i = 0; i < (lUnite.size()); i++)
+			lUniteF.add(0);
+		for(int j = 0; j< listUniteTBO.size()-1;j++)
+			for(int h = 0; h < listUniteTBO.get(j).size();h++)
+			{
+				for(int i = 0; i<lUnite.size();i++)
+				{
+					if(lUnite.get(i).getNom()== listUniteTBO.get(j).get(h))
+					{
+						lUniteF.set(i, listUniteTBOValue.get(j).get(h));
+					}
+				}
+			}
+		
+		ArrayList<Integer> lRessourceF = listUniteTBOValue.get(3);
+		System.out.println(lUniteF);
+		System.out.println(lRessourceF);
+		
+		new FinalWindow(CalculatorSingleton.getInstance().calculBO(lUniteF, lRessourceF));
 	}
 }

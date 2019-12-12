@@ -19,11 +19,23 @@ public class Action implements IAction {
 	* @see IAction#getConstructedUnite()
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
+	
+	private int tempsAttente=-1;
+	
+	private IUnite unite = null;
+	
+	public Action(int time)
+	{
+		tempsAttente = time;
+	}
+	
+	public Action(IUnite unite)
+	{
+		this.unite=unite;
+	}
+	
 	public IUnite getConstructedUnite() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		return unite;
 	}
 
 	/** 
@@ -32,9 +44,6 @@ public class Action implements IAction {
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
 	public Integer getWaitedTime() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		return tempsAttente;
 	}
 }

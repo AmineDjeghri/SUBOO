@@ -6,7 +6,7 @@ package calculator;
 import java.util.ArrayList;
 import java.util.List;
 
-import action.Construire;
+import factory.ActionFactory;
 import itf.IAction;
 import itf.IEntite;
 import itf.IEtat;
@@ -130,8 +130,8 @@ public class Calculator {
 					if (tousPresente) {
 						//boucle autemps de fois que l'on doit construire l'unite
 						for (int b=0;b<uniteObjectif.get(i);b++) {
-							IAction action= new Construire(listUnite.get(i));
-							etat.addAction(new action.getConstructedUnite());//ajoute l'action dans l'etat ainsi que l'unite concerne
+							IAction action= ActionFactory.createAction(listUnite.get(i));
+							etat.addAction(action);//ajoute l'action dans l'etat ainsi que l'unite concerne
 						}
 					}
 					//Sinon rajoute les unités de prérequis dont on a besoin dans uniteObjectif si celle ci n'a pas été prévue dans le bo
