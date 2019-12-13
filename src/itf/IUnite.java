@@ -29,4 +29,7 @@ public interface IUnite {
 	public List<IRessource> getRessourceProd();
 	
 	public int getTempsConstruc();
+
+
+	public void setPrerequis(IUnite unite);
 }

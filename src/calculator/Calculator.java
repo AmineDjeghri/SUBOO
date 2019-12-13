@@ -150,6 +150,7 @@ public class Calculator implements ICalculator{
 					listEntiteEtat = etat.getEntite();//MAJ de la liste des entites presentes dans l'etat
 					
 				}
+				i++;
 			}
 		}
 		

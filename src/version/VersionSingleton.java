@@ -3,7 +3,7 @@
  */
 package version;
 
-import bouchons.VersionBouchon;
+import bouchonTestCalculator.Version;
 import itf.IVersion;
 
 

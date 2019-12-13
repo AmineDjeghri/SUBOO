@@ -1,4 +1,4 @@
-package version;
+package test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,9 @@ import org.junit.Test;
 import itf.IEtat;
 import itf.IRessource;
 import itf.IUnite;
+import version.Ressource;
+import version.Type;
+import version.Unite;
 
 public class TestVersion {
 	
