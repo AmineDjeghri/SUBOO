@@ -51,7 +51,7 @@ public class Calculator {
 						etat=modifierBo(action,etat,prerequis.get(a));
 					}
 				}
-				etat.addAction(action);
+				etat=etat.addAction(action);
 			}
 		}
 		
@@ -131,7 +131,7 @@ public class Calculator {
 						//boucle autemps de fois que l'on doit construire l'unite
 						for (int b=0;b<uniteObjectif.get(i);b++) {
 							IAction action= ActionFactory.createAction(listUnite.get(i));
-							etat.addAction(action);//ajoute l'action dans l'etat ainsi que l'unite concerne
+							etat=etat.addAction(action);//ajoute l'action dans l'etat ainsi que l'unite concerne
 						}
 					}
 					//Sinon rajoute les unités de prérequis dont on a besoin dans uniteObjectif si celle ci n'a pas été prévue dans le bo
@@ -185,7 +185,7 @@ public class Calculator {
 		
 		//on ajoute toute les action de la liste d'action pour creer l'etat dans le quel commence le BO
 		for (IAction action : etatInit) {
-			etat.addAction(action);
+			etat=etat.addAction(action);
 		}
 		
 		//on appel la fonction pour calculer le BO avec l'etat de depart que l'on viens de creer
@@ -204,30 +204,5 @@ public class Calculator {
 	public Boolean changerVersion(String version) {
 		return VersionSingleton.getIversion().chargerVersion(version);
 	}
-	
-	
-	/**
-	 * Fonction qui va creer une liste d'IUnite comprenant l'objectif a atteindre. Pours cela la fonction parcours une liste d'Integer et a chaque
-	 * @param uniteObjectif
-	 * @param listUnite
-	 * @return list: Une liste de IUnite correspondant a l'objectif a atteindre
-	 */
-	private List<IUnite> creationListUniteObjectif(List <Integer> uniteObjectif, List <IUnite> listUnite) {
-		List<IUnite> list = new ArrayList<IUnite>();
-		//parcour uniteeObjectif pour voir a quel indice se trouve une demande d'unité
-		for (int i=0; i<uniteObjectif.size();i++) {
-			//si une demande est présente
-			if (uniteObjectif.get(i) != 0) {
-				//alors boucler autant dde fois que le nombre d'unité voulue pour l'ajouter à la liste d'IUnite a renvoyer
-				for (int j=0; j<uniteObjectif.get(i);j++) {
-					list.add(listUnite.get(i));
-				}
-			}
-		}
-		
-		return (List<IUnite>) list;
-	}
-	
-	
 	
 }
