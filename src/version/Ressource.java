@@ -1,69 +1,65 @@
-/**
- * 
- */
+
 package version;
 
 import itf.IRessource;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author sebma
-* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+
 public class Ressource implements IRessource {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
 	private String name;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
 	private Integer quantite;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Unite unite;
 
-	/** 
-	* (non-Javadoc)
-	* @see IRessource#setValeur(Integer valeur)
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
+
+	public Ressource (IRessource iRessource) {
+		this.name = iRessource.getRessourceName();
+		this.quantite = iRessource.getValeur();
+	}
+	public Ressource(String name){
+		this.name = name;
+		quantite = 0;
+	}
+	
+	public Ressource(String name, Integer quantite) {
+		this.name = name;
+		this.quantite = quantite;
+	}
+	
+
 	public void setValeur(Integer valeur) {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+		quantite = valeur;
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see IRessource#getRessourceName()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	
 	public String getRessourceName() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		return name;
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see IRessource#getValeur()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
 	public Integer getValeur() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		return quantite;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ressource other = (Ressource) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (quantite == null) {
+			if (other.quantite != null)
+				return false;
+		} else if (!quantite.equals(other.quantite))
+			return false;
+		return true;
+	}
+	
 }

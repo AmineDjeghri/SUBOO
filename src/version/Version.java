@@ -1,78 +1,238 @@
-/**
- * 
- */
 package version;
 
-import itf.IVersion;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import itf.IEtat;
+import itf.IRessource;
 import itf.IUnite;
+import itf.IVersion;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author sebma
-* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+
 public class Version implements IVersion {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Set<Unite> versionne;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	private Set<Ressource> ressource;
+	private static IVersion version = null;
+	private List<IUnite> versionJeu;
 
-	/** 
-	* (non-Javadoc)
-	* @see IVersion#getRessources()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Set<Object> getRessources() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+	private static List<IRessource> ressource;
+	
+	private CharSequence numVers;
+	
+	private IEtat initialState;
+
+	private Version () {
+		try {
+			ressource = new ArrayList<>();
+			initialState = factory.EtatFactory.createEtat();
+			loadFile("v1.0.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static IVersion getInstanceIVersion() {
+		if(version == null) {
+			version = new Version();
+		}
+		return version;
+	}
+	
+	public List<IRessource> getRessources() {
+	
+		return new ArrayList<>(ressource);
+		
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see IVersion#getEtatInitial()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	
 	public IEtat getEtatInitial() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		
+		return initialState;
+		
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see IVersion#getUnites()
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public Set<IUnite> getUnites() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+	
+	public List<IUnite> getUnites() {
+		
+		return versionJeu;
+		
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see IVersion#chargerVersion(String version)
-	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	
 	public Boolean chargerVersion(String version) {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return null;
-		// end-user-code
+		Boolean b = true;
+		try {
+		if(!(version.equals(numVers))) {
+			loadFile("../../"+version);
+			numVers = version;
+		}
+		}catch (FileNotFoundException fnfe) {
+			System.out.println(fnfe.getMessage());
+			b = false;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return b;
 	}
+	
+	private void loadFile(String pathVersion) throws IOException {
+		Path p = Paths.get("v1.0.txt");
+		BufferedReader br = new BufferedReader(new FileReader(p.toAbsolutePath().toFile()));
+		String line = br.readLine();
+		Scanner stream = new Scanner(line);
+		stream.useDelimiter(",");
+		List<Unite> uniteList = new ArrayList<>();
+		List<IUnite> unite;
+		List<IRessource> ress;
+		List<IUnite> constList = new ArrayList<>();
+		try {
+			
+		// On met toutes les ressources dans la liste attribut
+		while(stream.hasNext()){
+			ressource.add(new Ressource(stream.next()));
+		}
+		
+		line = br.readLine();
+		stream = new Scanner(line);
+		stream.useDelimiter(",");
+		
+		// On met toutes les unités dans la liste 
+		while(stream.hasNext()) {
+			uniteList.add(new Unite(stream.next()));
+		}
+		
+		for(Unite u : uniteList) {
+			line = br.readLine();
+			stream = new Scanner(line);
+			stream.useDelimiter(";");
+			u.setTempsConstruc(stream.nextInt());
+			u.setType(toType(stream.next()));
+			
+			String prerq = stream.next();			
+			String constructorlist = stream.next();
+			String ressourcesProd = stream.next();
+			String cout = stream.next();
+			
+			// Pour chaque champ composé, on le découpe en parties puis on remplit les champs de Unite
+			stream = new Scanner(prerq);
+			unite = new ArrayList<>();
+			
+			while(stream.hasNext()) {				// Prérequis	
+				line = stream.next();
+				for(Unite un : uniteList) { 		// On recherche l'unite qui correspond au prérequis
+					if(un.getNom().equals(line)) {
+						unite.add(un);				// on l'ajoute dans la liste des prérequis
+						break;
+					}
+				}
+			}
+			if(unite.isEmpty())
+				u.setPrerequis(null);
+			else
+				u.setPrerequis(new ArrayList<IUnite>(unite));
+			
+													// On passe à la liste des constructeurs 
+			stream = new Scanner(constructorlist);
+			stream.useDelimiter(",");
+			while(stream.hasNext()) {
+				line = stream.next();
+				for(Unite un : uniteList) { 		// On recherche l'unite qui correspond au constructeur
+					if(un.getNom().equals(line)) {
+						constList.add(un);				// on l'ajoute dans la liste des constructeurs
+						break;
+					}
+				}
+			}
+			if(unite.isEmpty())
+				u.setConstructorsList(null);
+			else
+				u.setConstructorsList(new ArrayList<IUnite>(unite));
+			
+														// La liste des ressources produites
+			stream = new Scanner(ressourcesProd);
+			stream.useDelimiter(",");
+			ress = new ArrayList<>();
+			while(stream.hasNext()) {
+				line = stream.next();
+				Scanner sc = new Scanner(line);
+				Ressource r = new Ressource(sc.next());
+				r.setValeur(Integer.parseInt(sc.next()));
+				ress.add(r);
+				sc.close();
+			}
+			
+			if(ress.isEmpty())
+				u.setRessourceProd(null);
+			else
+				u.setRessourceProd(new ArrayList<>(ress));
+						
+													// Cout 
+			stream = new Scanner(cout);
+			stream.useDelimiter(",");
+			ress = new ArrayList<>();
+			while(stream.hasNext()) {
+				line = stream.next();
+				Scanner sc = new Scanner(line);
+				Ressource r = new Ressource(sc.next());
+				r.setValeur(sc.nextInt());
+				ress.add(r);
+				sc.close();
+			}
+			
+			if(ress.isEmpty())
+				u.setCout(null);
+			else
+				u.setCout(new ArrayList<>(ress));
+		}
+		versionJeu = new ArrayList<IUnite>(uniteList);
+		
+		
+		// Reste à lire l'état initial : taille du tableau  + nbRessources \n
+		//puis tableau avec chiffres pour chaque unite
+		line = br.readLine();
+		stream = new Scanner(line);
+		int length = Integer.parseInt(stream.next());
+		int nbRess = Integer.parseInt(stream.next());
+		line = br.readLine();
+		stream = new Scanner(line);
+		stream.useDelimiter(",");
+		ress = new ArrayList<>();
+		unite = new ArrayList<>();
+		for(int i = 0; i < length; i++) {
+			if(i < nbRess) {
+				ress.add(new Ressource(ressource.get(i)));
+				ress.get(i).setValeur(Integer.parseInt(stream.next()));
+			}
+			else {
+				int nbEntite = Integer.parseInt(stream.next());
+				for(int j = 0; j < nbEntite ; j++) {
+					initialState.addEntite(factory.EntiteFactory.createEntite(versionJeu.get(i-nbRess)));
+				}
+			}	
+		}
+	}finally {
+		stream.close();
+		br.close();
+		}
+	}
+	
+	private Type toType(String nom) {
+		if(nom.equals("Centre") || nom.equals("Ferme") ||nom.equals("Hall") || nom.equals("Caserne")) {
+			return Type.BATIMENT;
+		}
+		else if(nom.equals("Ouvrier") || nom.equals("Soldat") || nom.equals("Boss")){
+			return Type.UNITE;
+		}
+		else {
+			return null;	
+		}
+	}
+	
 }
