@@ -136,9 +136,9 @@ public class Unite implements IUnite {
 	public int typeToInt() {
 		switch(type) {
 		case BATIMENT:
-			return 0;
-		case UNITE:
 			return 1;
+		case UNITE:
+			return 0;
 		case TECHNOLOGIE:
 			return 2;
 		}

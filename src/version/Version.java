@@ -27,15 +27,7 @@ public class Version implements IVersion {
 	private IEtat initialState;
 
 	private Version () {
-		try {
-			ressource = new ArrayList<>();
-			initialState = factory.EtatFactory.createEtat();
-			loadFile("v1.0.txt");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		clear();
 	}
 	
 	public static IVersion getInstanceIVersion() {
@@ -70,7 +62,7 @@ public class Version implements IVersion {
 		Boolean b = true;
 		try {
 		if(!(version.equals(numVers))) {
-			loadFile("../../"+version);
+			loadFile(version);
 			numVers = version;
 		}
 		}catch (FileNotFoundException fnfe) {
@@ -82,7 +74,15 @@ public class Version implements IVersion {
 		return b;
 	}
 	
+	private void clear()
+	{
+		ressource = new ArrayList<>();
+		versionJeu = new ArrayList<>();
+		initialState = factory.EtatFactory.createEtat();
+	}
+	
 	private void loadFile(String pathVersion) throws IOException {
+		clear();
 		Path p = Paths.get("v1.0.txt");
 		BufferedReader br = new BufferedReader(new FileReader(p.toAbsolutePath().toFile()));
 		String line = br.readLine();
@@ -96,7 +96,9 @@ public class Version implements IVersion {
 			
 		// On met toutes les ressources dans la liste attribut
 		while(stream.hasNext()){
-			ressource.add(new Ressource(stream.next()));
+			String s =stream.next();
+			ressource.add(new Ressource(s));
+			
 		}
 		
 		line = br.readLine();
@@ -224,14 +226,14 @@ public class Version implements IVersion {
 	}
 	
 	private Type toType(String nom) {
-		if(nom.equals("Centre") || nom.equals("Ferme") ||nom.equals("Hall") || nom.equals("Caserne")) {
+		if(nom.equals("Batiment")) {
 			return Type.BATIMENT;
 		}
-		else if(nom.equals("Ouvrier") || nom.equals("Soldat") || nom.equals("Boss")){
+		else if(nom.equals("Unite")){
 			return Type.UNITE;
 		}
 		else {
-			return null;	
+			return Type.TECHNOLOGIE;	
 		}
 	}
 	
