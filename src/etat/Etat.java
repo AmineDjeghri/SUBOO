@@ -39,9 +39,9 @@ public class Etat implements IEtat {
 	private IAction action = null;
 	private List<IRessource> ressources;
 	
-	private IEtat etatPrecedent;
-	private List<IEtat> etatsSuivants;
-	private List<IEntite> estComposeDe;
+	private IEtat etatPrecedent = null;
+	private List<IEtat> etatsSuivants = new ArrayList<IEtat>();
+	private List<IEntite> estComposeDe = new ArrayList<IEntite>();
 	
 	
 	
@@ -77,17 +77,20 @@ public class Etat implements IEtat {
 		
 		ArrayList<IRessource> lr = (ArrayList<IRessource>) VersionSingleton.getIversion().getRessources();
 		List<IEntite> le = new ArrayList<IEntite>();
-		
+		IEntite constructeur=null;
 		if(action.getConstructedUnite()!=null)
 		{
 			//On cherche qui va construire
+			
 			for(IEntite e : estComposeDe)
 			{
 				if(e.isDisponible())
 				{
 					if(action.getConstructedUnite().getConstructorsList().contains(e.getIdentite()))
 					{
-						
+						constructeur = e;
+						constructeur.setMobilise();
+						constructeur.setTempsRestant(action.getConstructedUnite().getTpsConstruction());
 					}
 				}
 					
@@ -103,35 +106,46 @@ public class Etat implements IEtat {
 			}
 		}
 		
+		//On ajoute les ressources produite
+		for(IEntite e: estComposeDe)
+		{
+			for(int i;i<e.getIdentite().getRessourceProd().size();i++)
+			{
+				int mult = time - (e.getTempsRestant());
+				if(mult<0)
+					mult=0;
+				lr.get(i).setValeur(lr.get(i).getValeur()+(e.getIdentite().getRessourceProd().get(i).getValeur())
+						*mult);
+			}
+		}
+		
 		for(IEntite e : estComposeDe)
 		{
 			le.add(e.addTime(time));
 		}
 		
-		
-		
+		//On remet le construteur en disponible dans l'etat courant
+		if(constructeur!=null)
+		{
+			constructeur.setDisponible();
+			constructeur.setTempsRestant(0);
+		}
 		
 		
 		next.setEntite(le);
+		next.setRessources(lr);
 		
-		
-		
-		
-		//la le précedant sera le meme que this :/
-		
-		return null;
-		
-		
-		
-		
+		return next;
 	}
+	
 	@Override
 	public List<IAction> getBuildOrder() {
 		List<IAction> bo= new ArrayList<>();
-		bo.add(action);
 		
 		if(etatPrecedent!=null)
 			bo.addAll(etatPrecedent.getBuildOrder());
+		
+		bo.add(action);
 		
 		return bo;
 	}
