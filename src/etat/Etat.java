@@ -16,11 +16,13 @@ import java.util.Set;
 
 import action.Action;
 import entite.EtatEntite;
+import factory.EntiteFactory;
 import itf.IEntite;
 import itf.IAction;
 import itf.IRessource;
 import itf.IUnite;
 import itf.IVersion;
+import version.VersionSingleton;
 
 /** 
 * <!-- begin-UML-doc -->
@@ -34,10 +36,8 @@ public class Etat implements IEtat {
 	
 
 	
-	private IAction action;
-	private IUnite unite;
+	private IAction action = null;
 	private List<IRessource> ressources;
-	private IVersion version;
 	
 	private IEtat etatPrecedent;
 	private List<IEtat> etatsSuivants;
@@ -67,9 +67,55 @@ public class Etat implements IEtat {
 	public IEtat addAction(IAction action) {
 		
 
-		new Etat(this);
-		this.action=action;
-		etatPrecedent.getNextsEtats().add(this);
+		Etat next = new Etat(this);
+		
+		etatsSuivants.add(next);
+		
+		int time = 1;
+		if(action.getConstructedUnite()==null)
+			time=action.getWaitedTime();
+		
+		ArrayList<IRessource> lr = (ArrayList<IRessource>) VersionSingleton.getIversion().getRessources();
+		List<IEntite> le = new ArrayList<IEntite>();
+		
+		if(action.getConstructedUnite()!=null)
+		{
+			//On cherche qui va construire
+			for(IEntite e : estComposeDe)
+			{
+				if(e.isDisponible())
+				{
+					if(action.getConstructedUnite().getConstructorsList().contains(e.getIdentite()))
+					{
+						
+					}
+				}
+					
+			}
+			
+			//Ajout unite à la liste
+			le.add(EntiteFactory.createEntite(action.getConstructedUnite()));
+			
+			//On modifie les ressources en fonction
+			for(int i=0;i<lr.size();i++)
+			{
+				lr.get(i).setValeur(ressources.get(i).getValeur()-action.getConstructedUnite().getCout().get(i).getValeur());
+			}
+		}
+		
+		for(IEntite e : estComposeDe)
+		{
+			le.add(e.addTime(time));
+		}
+		
+		
+		
+		
+		
+		next.setEntite(le);
+		
+		
+		
 		
 		//la le précedant sera le meme que this :/
 		
@@ -107,6 +153,11 @@ public class Etat implements IEtat {
 	@Override
 	public IEtat getBackEtat() {
 		return etatPrecedent;
+	}
+	
+	public void setEntite(List<IEntite> entites)
+	{
+		estComposeDe = entites;
 	}
 	
 	

@@ -96,4 +96,6 @@ public interface IEntite {
 	public Integer getTempsRestant();
 	
 	public IEntite getConstruction();
+	
+	public IEntite addTime(int time);
 }
