@@ -1,0 +1,13 @@
+Or,Nourriture
+Centre,Ferme,Caserne,Hall,Ouvrier,Soldat,Boss
+200;Batiment;Ouvrier;Ouvrier;Nourriture 6;Or 300
+60;Batiment;;Ouvrier;Nourriture 6;Or 100
+100;Batiment;Ouvrier Ferme;Ouvrier;;Or 150
+120;Batiment;Ouvrier Caserne;Ouvrier;;Or 200
+30;Unite;Centre;Centre;Or 1;Or 50,Nourriture 1
+50;Unite;Caserne;Caserne;;Or 100, Nourriture 1
+100;Unite;Hall Caserne;Caserne;;Or 200, Nourriture 3
+9 2
+50,0,1,0,0,0,5,0,0
+
+
