@@ -5,6 +5,7 @@ import java.util.Set;
 
 import itf.IRessource;
 import itf.IUnite;
+import version.Type;
 
 public class UniteBouchon implements IUnite {
 
@@ -41,14 +42,20 @@ public class UniteBouchon implements IUnite {
 	}
 
 	@Override
-	public Integer GetType() {
-		return type;
-	}
-
-	@Override
 	public List<IRessource> getRessourceProd() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int typeToInt() {
+		return type;
 	}
 
 }

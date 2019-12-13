@@ -204,8 +204,8 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		
 		for (IUnite u : unites)
 		{
-			listUniteTBO.get(u.GetType()).add(u.getNom());
-			listUniteTBOValue.get(u.GetType()).add(0);
+			listUniteTBO.get(u.typeToInt()).add(u.getNom());
+			listUniteTBOValue.get(u.typeToInt()).add(0);
 		}
 		
 		for(IRessource r : ressources)

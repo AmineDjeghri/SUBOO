@@ -5,7 +5,7 @@ import itf.IEtat;
 
 public class EtatFactory {
 
-	public static IEtat createEntite()
+	public static IEtat createEtat()
 	{
 		return new Etat();
 	}
