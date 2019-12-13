@@ -8,6 +8,7 @@ import java.util.List;
 
 import factory.ActionFactory;
 import itf.IAction;
+import itf.ICalculator;
 import itf.IEntite;
 import itf.IEtat;
 import itf.IUnite;
@@ -20,7 +21,11 @@ import version.VersionSingleton;
 * @author sebma
 * @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
-public class Calculator {
+public class Calculator implements ICalculator{
+	
+	public Calculator() {
+		
+	}
 	
 	/**
 	 * Fonction qui va verifier un BO fournit par l'utilisateur afin de detreminer si ce BO est valide.
@@ -28,7 +33,7 @@ public class Calculator {
 	 * @param BOCree: list d'action creer par l'utilisateur que le programme va verifier
 	 * @return BO: liste d'action verifier et corriger, ci besoin, a l'utilisateur pour un BO valide
 	 */
-	public IAction verifierValidite(List <IAction> BOCree) {
+	public List<IAction> verifierValidite(List <IAction> BOCree) {
 		//On recupere l'etat initial du jeu
 		IEtat etat = VersionSingleton.getIversion().getEtatInitial(); 
 		//On recupere la liste des unites du jeu. On se base a son indice dans le tableau pour regarder la list envoye par l'utilisateur 
@@ -56,7 +61,7 @@ public class Calculator {
 		}
 		
 		List<IAction> BO = etat.getBuildOrder();//demande a etat le BO final
-		return (IAction) BO;
+		return (List<IAction>) BO;
 	}
 	
 	private IEtat modifierBo(IAction action, IEtat etat, IUnite uniteManquante) {
@@ -159,7 +164,7 @@ public class Calculator {
 	 * @param ressourceObjectif: List determinant les ressource que l'on souhaite obtenir dans l'etat Objectif
 	 * @return BO: Une liste d'IAction (un BO valide)
 	 */
-	public IAction calculBO(List <Integer> uniteObjectif, List <Integer> ressourceObjectif) {
+	public List<IAction> calculBO(List <Integer> uniteObjectif, List <Integer> ressourceObjectif) {
 		//On recupere l'etat initial du jeu
 		IEtat etat = VersionSingleton.getIversion().getEtatInitial();
 		//on appel la fonction pour calculer le BO avec l'etat initial en etat de depart
@@ -167,7 +172,7 @@ public class Calculator {
 		//initialisation de la list d'action a retourner
 		List<IAction> BO = etat.getBuildOrder();//demande a etat le BO final
 		
-		return (IAction) BO; 
+		return (List<IAction>) BO; 
 	}
 	
 	
@@ -179,7 +184,7 @@ public class Calculator {
 	 * @param ressourceObjectif: List determinant les ressource que l'on souhaite obtenir dans l'etat Objectif
 	 * @return BO: Une liste d'IAction (un BO valide)
 	 */
-	public IAction calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) {
+	public List<IAction> calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) {
 		//On recupere l'etat initial du jeu
 		IEtat etat = VersionSingleton.getIversion().getEtatInitial();
 		
@@ -192,7 +197,7 @@ public class Calculator {
 		etat=calculBO(uniteObjectif, ressourceObjectif, etat);
 		
 		List<IAction> BO = etat.getBuildOrder();//demande a etat le BO final
-		return (IAction) BO; 
+		return (List<IAction>) BO; 
 	}
 	
 	
@@ -201,7 +206,7 @@ public class Calculator {
 	 * @param version : nom de la version a changer
 	 * @return Un boolean signalant si la version a ete charger ou non
 	 */
-	public Boolean changerVersion(String version) {
+	public Boolean ChangerVersion(String version) {
 		return VersionSingleton.getIversion().chargerVersion(version);
 	}
 	

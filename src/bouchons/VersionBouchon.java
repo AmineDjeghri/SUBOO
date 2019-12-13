@@ -47,8 +47,7 @@ public class VersionBouchon implements IVersion{
 
 	@Override
 	public Boolean chargerVersion(String version) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	

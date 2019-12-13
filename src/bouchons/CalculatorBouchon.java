@@ -14,7 +14,7 @@ import version.VersionSingleton;
 public class CalculatorBouchon implements ICalculator{
 
 	@Override
-	public List<IAction> calculBO(IEtat etatInitial, List<Integer> unite, List<Integer> ressource) {
+	public List<IAction> calculBO(List <IAction> etatInitial, List<Integer> unite, List<Integer> ressource) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -35,13 +35,13 @@ public class CalculatorBouchon implements ICalculator{
 	}
 
 	@Override
-	public void ChangerVersion(String version) {
-		// TODO Auto-generated method stub
+	public Boolean ChangerVersion(String version) {
+		return true;
 		
 	}
 
 	@Override
-	public List<IAction> VerifierValidite(List<IAction> BOObjectif) {
+	public List<IAction> verifierValidite(List <IAction> BOCree) {
 		// TODO Auto-generated method stub
 		return null;
 	}

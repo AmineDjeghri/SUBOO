@@ -22,7 +22,7 @@ public interface ICalculator {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public List<IAction> calculBO(IEtat etatInitial, List<Integer> unite, List<Integer> ressource);
+	public List<IAction> calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -32,15 +32,16 @@ public interface ICalculator {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public List<IAction> calculBO(List<Integer> unites, List<Integer> ressources);
+	public List<IAction> calculBO(List <Integer> uniteObjectif, List <Integer> ressourceObjectif);
 
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
 	* @param version
+	 * @return 
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public void ChangerVersion(String version);
+	public Boolean ChangerVersion(String version);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -49,5 +50,5 @@ public interface ICalculator {
 	* @return
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public List<IAction> VerifierValidite(List<IAction> BOObjectif);
+	public List<IAction> verifierValidite(List <IAction> BOCree);
 }
