@@ -64,7 +64,7 @@ public class Etat implements IEtat {
 		this.ressources = ressources;
 	}
 	@Override
-	public void addAction(IAction action) {
+	public IEtat addAction(IAction action) {
 		
 
 		new Etat(this);
@@ -72,6 +72,8 @@ public class Etat implements IEtat {
 		etatPrecedent.getNextsEtats().add(this);
 		
 		//la le précedant sera le meme que this :/
+		
+		return null;
 		
 		
 		

@@ -35,7 +35,7 @@ public interface IEtat {
 	* @param action
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public void addAction(IAction action);
+	public IEtat addAction(IAction action);
 
 	/** 
 	* <!-- begin-UML-doc -->
