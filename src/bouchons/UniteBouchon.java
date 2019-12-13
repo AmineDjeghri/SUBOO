@@ -58,4 +58,10 @@ public class UniteBouchon implements IUnite {
 		return type;
 	}
 
+	@Override
+	public int getTempsConstruc() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -90,7 +90,7 @@ public class Etat implements IEtat {
 					{
 						constructeur = e;
 						constructeur.setMobilise();
-						constructeur.setTempsRestant(action.getConstructedUnite().getTpsConstruction());
+						constructeur.setTempsRestant(action.getConstructedUnite().getTempsConstruc());
 					}
 				}
 					
@@ -109,7 +109,7 @@ public class Etat implements IEtat {
 		//On ajoute les ressources produite
 		for(IEntite e: estComposeDe)
 		{
-			for(int i;i<e.getIdentite().getRessourceProd().size();i++)
+			for(int i=0;i<e.getIdentite().getRessourceProd().size();i++)
 			{
 				int mult = time - (e.getTempsRestant());
 				if(mult<0)
