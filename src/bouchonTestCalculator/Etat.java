@@ -54,24 +54,30 @@ public class Etat implements IEtat {
 	public void setRessources(List<IRessource> ressources) {
 		this.ressources = ressources;
 	}
+	public void setAction(IAction action) {
+		this.action=action;
+	}
 	@Override
 	public IEtat addAction(IAction action) {
 		
-
 		Etat next = new Etat(this);
 		next.addEntite(new Entite(action.getConstructedUnite()));
 		
 		etatsSuivants.add(next);
+		etatsSuivants.get(etatsSuivants.size()-1).setAction(action);
 		
 		return next;
 	}
-	
+	public IAction getAction() {
+		return action;
+	}
 	@Override
 	public List<IAction> getBuildOrder() {
 		List<IAction> bo= new ArrayList<>();
 		
-		if(etatPrecedent!=null)
-			bo.addAll(etatPrecedent.getBuildOrder());
+		if(etatPrecedent!=null && etatPrecedent.getAction()!=null)
+			bo=etatPrecedent.getBuildOrder();
+			
 		
 		bo.add(action);
 		
@@ -80,8 +86,13 @@ public class Etat implements IEtat {
 	
 	@Override
 	public List<IEntite> getEntite() {
-		// TODO Auto-generated method stub
-		return estComposeDe;
+		List<IEntite> listEntite= new ArrayList<>();
+		
+		if(etatPrecedent!=null)
+			listEntite.addAll(etatPrecedent.getEntite());
+			
+		listEntite.addAll(estComposeDe);
+		return listEntite;
 	}
 	@Override
 	public List<IEtat> getNextsEtats() {

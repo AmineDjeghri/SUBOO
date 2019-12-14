@@ -53,39 +53,45 @@ public class Calculator implements ICalculator{
 						}
 					}
 					if (presente == false) {
-						etat=modifierBo(action,etat,prerequis.get(a));
+						etat=modifierBo(etat,prerequis.get(a));
 					}
 				}
-				etat=etat.addAction(action);
 			}
+			etat=etat.addAction(action);
 		}
 		
 		List<IAction> BO = etat.getBuildOrder();//demande a etat le BO final
 		return (List<IAction>) BO;
 	}
 	
-	private IEtat modifierBo(IAction action, IEtat etat, IUnite uniteManquante) {
+	private IEtat modifierBo(IEtat etat, IUnite uniteManquante) {
 		//On recupere la liste et quantité des unites presentes dans l'etat
 		List<IEntite> listEntiteEtat = etat.getEntite();
 		IUnite unite = uniteManquante;
 		List<IUnite> prerequis = unite.getPrerequis();
-		for (int a = 0; a<prerequis.size(); a++) {//pour chaque prerequis je vais regarder si il est dans l'etat
-			boolean presente = false;//variablee qui passe a true si le prerequis est present
-			for (IEntite ent : listEntiteEtat) {
-				if (ent.getIdentite().getNom()==prerequis.get(a).getNom()) {
-					presente=true;
+		if (prerequis.size()>0) {
+			for (int a = 0; a<prerequis.size(); a++) {//pour chaque prerequis je vais regarder si il est dans l'etat
+				boolean presente = false;//variable qui passe a true si le prerequis est present
+				for (IEntite ent : listEntiteEtat) {
+					if (ent.getIdentite().getNom()==prerequis.get(a).getNom()) {
+						presente=true;
+					}
 				}
+				if (presente == false) {
+					etat=modifierBo(etat,prerequis.get(a));
+				}
+				etat=etat.addAction(ActionFactory.createAction(uniteManquante));
+				listEntiteEtat = etat.getEntite();
 			}
-			if (presente == false) {
-				etat=modifierBo(action,etat,prerequis.get(a));
-			}
+		}
+		else {
+			etat=etat.addAction(ActionFactory.createAction(uniteManquante));
 			listEntiteEtat = etat.getEntite();
 		}
 		
 		return etat;
 	}
 
-	
 	/**
 	 * Fonction qui prend un objectif a atteindre et un etat afin de calculer un BO valide.
 	 * Return un BO valide selon les parametre fournis.
@@ -99,63 +105,54 @@ public class Calculator implements ICalculator{
 		List<IUnite> listUnite = VersionSingleton.getIversion().getUnites();
 		//On recupere la liste et quantité des unites presentes dans l'etat
 		List<IEntite> listEntiteEtat = etat.getEntite();
+		for (int j=0; j<listEntiteEtat.size();j++) {
+			System.out.println(listEntiteEtat.get(j).getIdentite().getNom());
+		}
+		System.out.println(listEntiteEtat);
 		
-		boolean listeVide = false;
-		//tant que tous les elements de la liste ne seront pas a 0
-		while (!listeVide) {
-			listeVide=true;
-			int i=0;
-			//on parcours uniteObjectif
-			while (i<uniteObjectif.size()) {
-				if (uniteObjectif.get(i)!=0) {
-					listeVide=false; //la liste n'est donc pas encore vide
-					IUnite unite = listUnite.get(i);//on regarde de quel unite il s'agit
-					List<IUnite> prerequis = unite.getPrerequis();//on regarde de quel prerequis elle a besoin
-					
-					//phase de test pour les prerequis
-					boolean tousPresente = true;//variable qui vas passer a false si un prerequi n'est pas present dans l'etat
-					List <Integer> indiceUnitePrerequisBesoin = new ArrayList<Integer>();
+		//ajout de chaque unité
+		for (int i=0; i<uniteObjectif.size(); i++) {
+			//si une unité est demandé
+			if (uniteObjectif.get(i)!=0){
+				IUnite unite=listUnite.get(i);
+				//je demande ses prerequis
+				List<IUnite> prerequis = unite.getPrerequis();
+				if (prerequis.size()>0) {
 					for (int a = 0; a<prerequis.size(); a++) {//pour chaque prerequis je vais regarder si il est dans l'etat
-						boolean presente = false;//variablee qui passe a true si le prerequis est present
-						int b=0;
+						boolean presente = false;//variable qui passe a true si le prerequis est present
 						for (IEntite ent : listEntiteEtat) {
 							if (ent.getIdentite().getNom()==prerequis.get(a).getNom()) {
 								presente=true;
 							}
-							if (presente == false) {
-								tousPresente=false;//il manque un prerequi dans l'etat
-								indiceUnitePrerequisBesoin.add(b);//ajout l'indice de position de l'unite dans la liste des prerequis dont on a besoin
-							}
-							b++;
 						}
-					}
-					//fin de la phase de test des prerequis
-					
-					//si prerequis present dans l'etat, alors ajouter les actions pour crer les unités dans l'etat et mettre a jour le BO
-					if (tousPresente) {
-						//boucle autemps de fois que l'on doit construire l'unite
-						for (int b=0;b<uniteObjectif.get(i);b++) {
-							IAction action= ActionFactory.createAction(listUnite.get(i));
-							etat=etat.addAction(action);//ajoute l'action dans l'etat ainsi que l'unite concerne
+						if (presente == false) {
+							etat=modifierBo(etat,prerequis.get(a));
 						}
-					}
-					//Sinon rajoute les unités de prérequis dont on a besoin dans uniteObjectif si celle ci n'a pas été prévue dans le bo
-					else {
-						for(int a=0; a<indiceUnitePrerequisBesoin.size();a++) {
-							if (uniteObjectif.get(indiceUnitePrerequisBesoin.get(a))==0){
-								uniteObjectif.set(indiceUnitePrerequisBesoin.get(a),1);
+						//nombre de fois ou l'unite a déjà été construite plus tot (par exemple en prerequis manquant)
+						int nbDejaLa=0;
+						//on parcoure la liste des entité présente dans l'eetat pour voir le nombr ede fois quellee se trouve
+						for (IEntite ent : listEntiteEtat){
+							//si l'entité et l'unité demander se correspondant
+							if (ent.getIdentite().getNom()==listUnite.get(i).getNom()) {
+								nbDejaLa++;
 							}
 						}
+						for (int j=0; j<uniteObjectif.get(i)-nbDejaLa;j++) {
+							etat=etat.addAction(ActionFactory.createAction(unite));
+						}
+						listEntiteEtat = etat.getEntite();
 					}
-					listEntiteEtat = etat.getEntite();//MAJ de la liste des entites presentes dans l'etat
-					
 				}
-				i++;
+				else {
+					etat=etat.addAction(ActionFactory.createAction(unite));
+					listEntiteEtat = etat.getEntite();
+				}
 			}
 		}
 		
 		return etat;
 	}
+	
 	
 	
 	/**
@@ -188,16 +185,25 @@ public class Calculator implements ICalculator{
 	public List<IAction> calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) {
 		//On recupere l'etat initial du jeu
 		IEtat etat = VersionSingleton.getIversion().getEtatInitial();
+		List<IAction> BO = new ArrayList <IAction> (); 
 		
 		//on ajoute toute les action de la liste d'action pour creer l'etat dans le quel commence le BO
 		for (IAction action : etatInit) {
 			etat=etat.addAction(action);
 		}
 		
+		//BO initial qui faudra enlever du BO retourne
+		List<IAction> BOInit = etat.getBuildOrder();
+		
 		//on appel la fonction pour calculer le BO avec l'etat de depart que l'on viens de creer
 		etat=calculBO(uniteObjectif, ressourceObjectif, etat);
 		
-		List<IAction> BO = etat.getBuildOrder();//demande a etat le BO final
+		List<IAction> BOTotal = etat.getBuildOrder();//demande a etat le BO final
+		
+		for (int i = BOInit.size(); i<BOTotal.size(); i++) {
+			BO.add(BOTotal.get(i));
+		}
+		
 		return (List<IAction>) BO; 
 	}
 	

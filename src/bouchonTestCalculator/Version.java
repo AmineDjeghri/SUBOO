@@ -57,7 +57,7 @@ public class Version implements IVersion{
 		
 		initialState = new <IEtat> Etat();
 		for (int i = 0 ; i<5; i++) {
-			initialState.addEntite(new <IEntite> Entite(unites.get(2)));
+			initialState.addEntite(new <IEntite> Entite(unites.get(0)));
 		}
 
 	}

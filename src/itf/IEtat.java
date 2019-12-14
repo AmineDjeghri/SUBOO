@@ -77,4 +77,8 @@ public interface IEtat {
 	*/
 	public IEtat getBackEtat();
 
+	public void setAction(IAction action);
+
+	public IAction getAction();
+
 }
