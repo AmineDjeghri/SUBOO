@@ -3,6 +3,7 @@
  */
 package itf;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +49,8 @@ public interface ICalculator {
 	* <!-- end-UML-doc -->
 	* @param BOObjectif
 	* @return
+	 * @throws IOException 
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public List<IAction> verifierValidite(List <IAction> BOCree);
+	public List<IAction> verifierValidite(List <IAction> BOCree) throws IOException;
 }

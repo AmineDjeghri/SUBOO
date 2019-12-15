@@ -3,6 +3,7 @@
  */
 package calculator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,9 @@ public class Calculator implements ICalculator{
 	 * Si celui ci ne l'ai pas, le corrige et lui renvoie un BO valide.
 	 * @param BOCree: list d'action creer par l'utilisateur que le programme va verifier
 	 * @return BO: liste d'action verifier et corriger, ci besoin, a l'utilisateur pour un BO valide
+	 * @throws IOException 
 	 */
-	public List<IAction> verifierValidite(List <IAction> BOCree) {
+	public List<IAction> verifierValidite(List <IAction> BOCree) throws IOException {
 		//On recupere l'etat initial du jeu
 		IEtat etat = VersionSingleton.getIversion().getEtatInitial(); 
 		//On recupere la liste des unites du jeu. On se base a son indice dans le tableau pour regarder la list envoye par l'utilisateur 

@@ -28,7 +28,7 @@ public class Version implements IVersion {
 
 	private Version () throws IOException {
 		clear();
-		loadFile("v1.0");
+		loadFile("v1.0.txt");
 	}
 	
 	public static IVersion getInstanceIVersion() throws IOException {
@@ -39,8 +39,11 @@ public class Version implements IVersion {
 	}
 	
 	public List<IRessource> getRessources() {
-	
-		return new ArrayList<>(ressource);
+		List<IRessource> l = new ArrayList<>();
+		for(IRessource r : ressource) {
+			l.add(new Ressource(r));
+		}
+		return l;
 		
 	}
 
@@ -137,7 +140,7 @@ public class Version implements IVersion {
 				}
 			}
 			if(unite.isEmpty())
-				u.setPrerequis();
+				u.setPrerequis(null);
 			else
 				u.setPrerequis(new ArrayList<IUnite>(unite));
 			
@@ -220,6 +223,7 @@ public class Version implements IVersion {
 				}
 			}	
 		}
+		initialState.setRessources(ress);
 	}finally {
 		stream.close();
 		br.close();

@@ -49,17 +49,18 @@ public class Ressource implements IRessource {
 		if (getClass() != obj.getClass())
 			return false;
 		Ressource other = (Ressource) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		if (!name.equals(other.name))
 			return false;
-		if (quantite == null) {
-			if (other.quantite != null)
-				return false;
-		} else if (!quantite.equals(other.quantite))
+		if (!quantite.equals(other.quantite))
 			return false;
 		return true;
 	}
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(); 
+		sb.append(name);
+		sb.append(" : ");
+		sb.append(quantite);
+		return sb.toString();
+	}
 }
