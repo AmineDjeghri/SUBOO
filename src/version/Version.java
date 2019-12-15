@@ -26,11 +26,12 @@ public class Version implements IVersion {
 	
 	private IEtat initialState;
 
-	private Version () {
+	private Version () throws IOException {
 		clear();
+		loadFile("v1.0");
 	}
 	
-	public static IVersion getInstanceIVersion() {
+	public static IVersion getInstanceIVersion() throws IOException {
 		if(version == null) {
 			version = new Version();
 		}
@@ -136,7 +137,7 @@ public class Version implements IVersion {
 				}
 			}
 			if(unite.isEmpty())
-				u.setPrerequis(null);
+				u.setPrerequis();
 			else
 				u.setPrerequis(new ArrayList<IUnite>(unite));
 			
