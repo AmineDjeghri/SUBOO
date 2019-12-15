@@ -184,21 +184,16 @@ public class Calculator implements ICalculator{
 	 * @return BO: Une liste d'IAction (un BO valide)
 	 * @throws IOException 
 	 */
-	public List<IAction> calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) throws IOException {
-		//On recupere l'etat initial du jeu
-		IEtat etat = VersionSingleton.getIversion().getEtatInitial();
+	public List<IAction> calculBO(IEtat etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) throws IOException {
 		List<IAction> BO = new ArrayList <IAction> (); 
+		IEtat etat=etatInit;
 		
-		//on ajoute toute les action de la liste d'action pour creer l'etat dans le quel commence le BO
-		for (IAction action : etatInit) {
-			etat=etat.addAction(action);
-		}
 		
 		//BO initial qui faudra enlever du BO retourne
 		List<IAction> BOInit = etat.getBuildOrder();
 		
 		//on appel la fonction pour calculer le BO avec l'etat de depart que l'on viens de creer
-		etat=calculBO(uniteObjectif, ressourceObjectif, etat);
+		etat=calculBO(uniteObjectif, ressourceObjectif, etatInit);
 		
 		List<IAction> BOTotal = etat.getBuildOrder();//demande a etat le BO final
 		

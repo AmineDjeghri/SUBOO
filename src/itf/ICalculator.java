@@ -24,7 +24,7 @@ public interface ICalculator {
 	 * @throws IOException 
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public List<IAction> calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) throws IOException;
+	public List<IAction> calculBO(IEtat etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) throws IOException;
 
 	/** 
 	* <!-- begin-UML-doc -->

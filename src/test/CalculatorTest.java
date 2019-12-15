@@ -93,7 +93,7 @@ public class CalculatorTest {
 		etatinit=etatinit.addAction(ActionFactory.createAction(new Unite("Ferme")));//ajout ferme
 		
 		//envoie liste
-		List <IAction> listeRecue = calculator.calculBO(etatinit.getBuildOrder() ,listUnite, listRessource);
+		List <IAction> listeRecue = calculator.calculBO(etatinit ,listUnite, listRessource);
 		List <String> test3 = new ArrayList <String> ();
 		for (int i=0; i<listeRecue.size();i++) {
 			test3.add(listeRecue.get(i).getConstructedUnite().getNom());
