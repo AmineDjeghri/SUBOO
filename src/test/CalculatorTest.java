@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class CalculatorTest {
 	}
 	
 	@Test
-	public void testChangerVersion() {
+	public void testChangerVersion() throws IOException {
 		boolean resultatAttendu = true;
 		boolean test1 = calculator.ChangerVersion("v1");
 		assertEquals(resultatAttendu, test1);
@@ -45,7 +46,7 @@ public class CalculatorTest {
 	
 
 	@Test
-	public void testCalculBOUser() {
+	public void testCalculBOUser() throws IOException {
 		List <String> listAttendu = new ArrayList<String>();
 		listAttendu.add("Ferme");
 		listAttendu.add("Caserne");
@@ -72,7 +73,7 @@ public class CalculatorTest {
 	
 	
 	@Test
-	public void testCalculBOIA() {
+	public void testCalculBOIA() throws IOException {
 		List <String> listAttendu = new ArrayList<String>();
 		listAttendu.add("Caserne");
 		listAttendu.add("Soldat");
@@ -102,7 +103,7 @@ public class CalculatorTest {
 	
 
 	@Test
-	public void testVerfifierBO() {
+	public void testVerfifierBO() throws IOException {
 		List <String> listAttendu = new ArrayList<String>();
 		List <IUnite> listUnite = VersionSingleton.getIversion().getUnites();
 		listAttendu.add(listUnite.get(1).getNom());

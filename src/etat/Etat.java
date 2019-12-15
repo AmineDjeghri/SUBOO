@@ -10,6 +10,7 @@ import static itf.IUnite.*;
 import static itf.IRessource.*;
 import static itf.IAction.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -64,7 +65,7 @@ public class Etat implements IEtat {
 		this.ressources = ressources;
 	}
 	@Override
-	public IEtat addAction(IAction action) {
+	public IEtat addAction(IAction action) throws IOException {
 		
 
 		Etat next = new Etat(this);
@@ -172,6 +173,18 @@ public class Etat implements IEtat {
 	public void setEntite(List<IEntite> entites)
 	{
 		estComposeDe = entites;
+	}
+
+	@Override
+	public void setAction(IAction action) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IAction getAction() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

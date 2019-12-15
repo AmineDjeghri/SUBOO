@@ -1,5 +1,6 @@
 package bouchons;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class CalculatorBouchon implements ICalculator{
 	}
 
 	@Override
-	public List<IAction> calculBO(List<Integer> unites, List<Integer> ressources) {
+	public List<IAction> calculBO(List<Integer> unites, List<Integer> ressources) throws IOException {
 		ArrayList<IAction> la = new ArrayList<IAction>();
 		ArrayList<IUnite> lu = (ArrayList<IUnite>) VersionSingleton.getIversion().getUnites();
 		la.add(ActionFactory.createAction(lu.get(0)));

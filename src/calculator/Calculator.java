@@ -66,7 +66,7 @@ public class Calculator implements ICalculator{
 		return (List<IAction>) BO;
 	}
 	
-	private IEtat modifierBo(IEtat etat, IUnite uniteManquante) {
+	private IEtat modifierBo(IEtat etat, IUnite uniteManquante) throws IOException {
 		//On recupere la liste et quantité des unites presentes dans l'etat
 		List<IEntite> listEntiteEtat = etat.getEntite();
 		IUnite unite = uniteManquante;
@@ -101,8 +101,9 @@ public class Calculator implements ICalculator{
 	 * @param ressourceObjectif: List determinant les ressource que l'on souhaite obtenir dans l'etat Objectif
 	 * @param etat: etat dans lequel se trouve le jeu au depart
 	 * @return BO: Une liste d'IAction (un BO valide)
+	 * @throws IOException 
 	 */
-	private IEtat calculBO(List <Integer> uniteObjectif, List <Integer> ressourceObjectif, IEtat etat) {
+	private IEtat calculBO(List <Integer> uniteObjectif, List <Integer> ressourceObjectif, IEtat etat) throws IOException {
 		//On recupere la liste des unites du jeu. On se base a son indice dans le tableau pour regarder la lists  envoye par l'utilisateur 
 		List<IUnite> listUnite = VersionSingleton.getIversion().getUnites();
 		//On recupere la liste et quantité des unites presentes dans l'etat
@@ -163,8 +164,9 @@ public class Calculator implements ICalculator{
 	 * @param UniteObjectif : List determinant les unite que l'on veux obtenir dans l'etat Objectif
 	 * @param ressourceObjectif: List determinant les ressource que l'on souhaite obtenir dans l'etat Objectif
 	 * @return BO: Une liste d'IAction (un BO valide)
+	 * @throws IOException 
 	 */
-	public List<IAction> calculBO(List <Integer> uniteObjectif, List <Integer> ressourceObjectif) {
+	public List<IAction> calculBO(List <Integer> uniteObjectif, List <Integer> ressourceObjectif) throws IOException {
 		//On recupere l'etat initial du jeu
 		IEtat etat = VersionSingleton.getIversion().getEtatInitial();
 		//on appel la fonction pour calculer le BO avec l'etat initial en etat de depart
@@ -183,8 +185,9 @@ public class Calculator implements ICalculator{
 	 * @param UniteObjectif : List determinant les unite que l'on veux obtenir dans l'etat Objectif
 	 * @param ressourceObjectif: List determinant les ressource que l'on souhaite obtenir dans l'etat Objectif
 	 * @return BO: Une liste d'IAction (un BO valide)
+	 * @throws IOException 
 	 */
-	public List<IAction> calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) {
+	public List<IAction> calculBO(List <IAction> etatInit, List <Integer> uniteObjectif, List <Integer> ressourceObjectif) throws IOException {
 		//On recupere l'etat initial du jeu
 		IEtat etat = VersionSingleton.getIversion().getEtatInitial();
 		List<IAction> BO = new ArrayList <IAction> (); 
@@ -214,8 +217,9 @@ public class Calculator implements ICalculator{
 	 * Fonction qui va envoyer une demande de chargement pour une nouvelle version au composant Version
 	 * @param version : nom de la version a changer
 	 * @return Un boolean signalant si la version a ete charger ou non
+	 * @throws IOException 
 	 */
-	public Boolean ChangerVersion(String version) {
+	public Boolean ChangerVersion(String version) throws IOException {
 		return VersionSingleton.getIversion().chargerVersion(version);
 	}
 	

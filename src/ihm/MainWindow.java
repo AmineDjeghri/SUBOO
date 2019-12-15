@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainWindow extends JFrame implements ActionListener, ItemListener, ListSelectionListener, ChangeListener{
@@ -44,7 +45,7 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 	
 	private JList listTRouverBO;
 	private DefaultListModel listModelTBO= new DefaultListModel();
-	public MainWindow()
+	public MainWindow() throws IOException
 	{
 		this.setTitle("SUBOO");
 		this.setSize(300,200);
@@ -130,7 +131,12 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		Container contain = this.getContentPane();;
 		if(arg0.getSource() == buttonToTBO)
 		{
-			updateLists();
+			try {
+				updateLists();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			comboBoxTypeUnite.setSelectedIndex(1);
 			comboBoxTypeUnite.setSelectedIndex(0);
 			
@@ -149,7 +155,12 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		
 		if(arg0.getSource() == buttonValideTBO)
 		{
-			validerBO();
+			try {
+				validerBO();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -191,7 +202,7 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		
 	}
 	
-	private void updateLists()
+	private void updateLists() throws IOException
 	{
 		ArrayList<IUnite> unites = (ArrayList<IUnite>) Version.getInstanceIVersion().getUnites();
 		ArrayList<IRessource> ressources = (ArrayList<IRessource>) Version.getInstanceIVersion().getRessources();
@@ -229,7 +240,7 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		}
 	}
 	
-	private void validerBO()
+	private void validerBO() throws IOException
 	{
 		ArrayList<IUnite> lUnite = (ArrayList<IUnite>) Version.getInstanceIVersion().getUnites();
 		

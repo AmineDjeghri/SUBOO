@@ -3,6 +3,7 @@
  */
 package itf;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -33,9 +34,10 @@ public interface IEtat {
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
 	* @param action
+	 * @throws IOException 
 	* @generated "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public IEtat addAction(IAction action);
+	public IEtat addAction(IAction action) throws IOException;
 
 	/** 
 	* <!-- begin-UML-doc -->
