@@ -45,11 +45,11 @@ public class Version implements IVersion{
 		unites.add(new <IUnite> Unite("Ouvrier"));
 		unites.add(new <IUnite> Unite("Ferme"));
 		unites.add(new <IUnite> Unite("Caserne"));
-		unites.get(2).setPrerequis((IUnite) unites.get(1));
+		((Unite) (unites.get(2))).setPrerequis((IUnite) unites.get(1));
 		unites.add(new <IUnite> Unite("Arme en Fer"));
 		unites.add(new <IUnite> Unite("Outil en Fer"));
 		unites.add(new <IUnite> Unite("Soldat"));
-		unites.get(5).setPrerequis((IUnite) unites.get(2));
+		((Unite) (unites.get(5))).setPrerequis((IUnite) unites.get(2));
 		unites.add(new <IUnite> Unite("Boss"));
 		
 		ressources.add(new RessourceBouchon("Nouriture",0));
@@ -95,144 +95,7 @@ public class Version implements IVersion{
 	}
 	
 	private void loadFile(String pathVersion) throws IOException {
-		Path p = Paths.get("v1.0.txt");
-		BufferedReader br = new BufferedReader(new FileReader(p.toAbsolutePath().toFile()));
-		String line = br.readLine();
-		Scanner stream = new Scanner(line);
-		stream.useDelimiter(",");
-		List<Unite> uniteList = new ArrayList<>();
-		List<IUnite> unite;
-		List<IRessource> ress;
-		List<IUnite> constList = new ArrayList<>();
-		try {
-			
-		// On met toutes les ressources dans la liste attribut
-		while(stream.hasNext()){
-			ressource.add(new Ressource(stream.next()));
-		}
 		
-		line = br.readLine();
-		stream = new Scanner(line);
-		stream.useDelimiter(",");
-		
-		// On met toutes les unités dans la liste 
-		while(stream.hasNext()) {
-			uniteList.add(new Unite(stream.next()));
-		}
-		
-		for(Unite u : uniteList) {
-			line = br.readLine();
-			stream = new Scanner(line);
-			stream.useDelimiter(";");
-			u.setTempsConstruc(stream.nextInt());
-			u.setType(toType(stream.next()));
-			
-			String prerq = stream.next();			
-			String constructorlist = stream.next();
-			String ressourcesProd = stream.next();
-			String cout = stream.next();
-			
-			// Pour chaque champ composé, on le découpe en parties puis on remplit les champs de Unite
-			stream = new Scanner(prerq);
-			unite = new ArrayList<>();
-			
-			while(stream.hasNext()) {				// Prérequis	
-				line = stream.next();
-				for(Unite un : uniteList) { 		// On recherche l'unite qui correspond au prérequis
-					if(un.getNom().equals(line)) {
-						unite.add(un);				// on l'ajoute dans la liste des prérequis
-						break;
-					}
-				}
-			}
-			if(unite.isEmpty())
-				u.setPrerequis(null);
-			else
-				u.setPrerequis(new ArrayList<IUnite>(unite));
-			
-													// On passe à la liste des constructeurs 
-			stream = new Scanner(constructorlist);
-			stream.useDelimiter(",");
-			while(stream.hasNext()) {
-				line = stream.next();
-				for(Unite un : uniteList) { 		// On recherche l'unite qui correspond au constructeur
-					if(un.getNom().equals(line)) {
-						constList.add(un);				// on l'ajoute dans la liste des constructeurs
-						break;
-					}
-				}
-			}
-			if(unite.isEmpty())
-				u.setConstructorsList(null);
-			else
-				u.setConstructorsList(new ArrayList<IUnite>(unite));
-			
-														// La liste des ressources produites
-			stream = new Scanner(ressourcesProd);
-			stream.useDelimiter(",");
-			ress = new ArrayList<>();
-			while(stream.hasNext()) {
-				line = stream.next();
-				Scanner sc = new Scanner(line);
-				Ressource r = new Ressource(sc.next());
-				r.setValeur(Integer.parseInt(sc.next()));
-				ress.add(r);
-				sc.close();
-			}
-			
-			if(ress.isEmpty())
-				u.setRessourceProd(null);
-			else
-				u.setRessourceProd(new ArrayList<>(ress));
-						
-													// Cout 
-			stream = new Scanner(cout);
-			stream.useDelimiter(",");
-			ress = new ArrayList<>();
-			while(stream.hasNext()) {
-				line = stream.next();
-				Scanner sc = new Scanner(line);
-				Ressource r = new Ressource(sc.next());
-				r.setValeur(sc.nextInt());
-				ress.add(r);
-				sc.close();
-			}
-			
-			if(ress.isEmpty())
-				u.setCout(null);
-			else
-				u.setCout(new ArrayList<>(ress));
-		}
-		versionJeu = new ArrayList<IUnite>(uniteList);
-		
-		
-		// Reste à lire l'état initial : taille du tableau  + nbRessources \n
-		//puis tableau avec chiffres pour chaque unite
-		line = br.readLine();
-		stream = new Scanner(line);
-		int length = Integer.parseInt(stream.next());
-		int nbRess = Integer.parseInt(stream.next());
-		line = br.readLine();
-		stream = new Scanner(line);
-		stream.useDelimiter(",");
-		ress = new ArrayList<>();
-		unite = new ArrayList<>();
-		for(int i = 0; i < length; i++) {
-			if(i < nbRess) {
-				ress.add(new Ressource(ressource.get(i)));
-				ress.get(i).setValeur(Integer.parseInt(stream.next()));
-			}
-			else {
-				int nbEntite = Integer.parseInt(stream.next());
-				for(int j = 0; j < nbEntite ; j++) {
-					initialState.addEntite(factory.EntiteFactory.createEntite(versionJeu.get(i-nbRess)));
-				}
-			}	
-		}
-	}finally {
-		stream.close();
-		br.close();
-		}
 	}
 	
 	private Type toType(String nom) {

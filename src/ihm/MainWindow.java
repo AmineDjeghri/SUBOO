@@ -6,10 +6,12 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import calculator.CalculatorSingleton;
+import bouchons.CalculatorBouchon;
+import calculator.Calculator;
+import itf.ICalculator;
 import itf.IRessource;
 import itf.IUnite;
-import version.VersionSingleton;
+import version.Version;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -64,7 +66,8 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		
 		
 		comboBoxVersion = new JComboBox<String>();
-		comboBoxVersion.addItem("test000000000"); //TESTS
+		comboBoxVersion.addItem("v1.0"); //TESTS
+		Version.getInstanceIVersion().chargerVersion("v1.0.txt");
 		comboBoxVersion.setMaximumSize(comboBoxVersion.getPreferredSize());
 		pan2.add(Box.createHorizontalGlue());
 		pan2.add(comboBoxVersion);
@@ -190,9 +193,10 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 	
 	private void updateLists()
 	{
-		ArrayList<IUnite> unites = (ArrayList<IUnite>) VersionSingleton.getIversion().getUnites();
-		ArrayList<IRessource> ressources = (ArrayList<IRessource>) VersionSingleton.getIversion().getRessources();
+		ArrayList<IUnite> unites = (ArrayList<IUnite>) Version.getInstanceIVersion().getUnites();
+		ArrayList<IRessource> ressources = (ArrayList<IRessource>) Version.getInstanceIVersion().getRessources();
 		
+		System.out.println(ressources.size());
 		listUniteTBO.clear();
 		listUniteTBOValue.clear();
 		
@@ -227,7 +231,7 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 	
 	private void validerBO()
 	{
-		ArrayList<IUnite> lUnite = (ArrayList<IUnite>) VersionSingleton.getIversion().getUnites();
+		ArrayList<IUnite> lUnite = (ArrayList<IUnite>) Version.getInstanceIVersion().getUnites();
 		
 		ArrayList<Integer> lUniteF = new ArrayList<Integer>();
 		for(int i = 0; i < (lUnite.size()); i++)
@@ -248,6 +252,8 @@ public class MainWindow extends JFrame implements ActionListener, ItemListener, 
 		System.out.println(lUniteF);
 		System.out.println(lRessourceF);
 		
-		new FinalWindow(CalculatorSingleton.getInstance().calculBO(lUniteF, lRessourceF));
+		ICalculator calc = new Calculator();
+		
+		new FinalWindow(calc.calculBO(lUniteF, lRessourceF));
 	}
 }

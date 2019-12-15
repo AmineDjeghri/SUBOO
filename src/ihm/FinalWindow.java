@@ -22,7 +22,8 @@ public class FinalWindow extends JFrame {
 		this.setTitle("Resultat");
 		this.setSize(300,200);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocation(this.getLocation().x+200, this.getLocation().y);
+		
 		
 		DefaultListModel sl = new DefaultListModel();
 		

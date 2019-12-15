@@ -31,5 +31,4 @@ public interface IUnite {
 	public int getTempsConstruc();
 
 
-	public void setPrerequis(IUnite unite);
 }

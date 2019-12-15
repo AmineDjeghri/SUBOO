@@ -67,7 +67,7 @@ public class Unite implements IUnite {
 	public List<IUnite> getConstructorsList() {
 		return construitPar;
 	}
-	void setConstructorsList(List<IUnite> construitPar) {
+	public void setConstructorsList(List<IUnite> construitPar) {
 		this.construitPar = construitPar;
 	}
 
@@ -77,7 +77,7 @@ public class Unite implements IUnite {
 	}
 	
 	
-	void setCout(List<IRessource> r) {
+	public void setCout(List<IRessource> r) {
 		cout = r;
 	}
 
@@ -87,7 +87,7 @@ public class Unite implements IUnite {
 	}
 	
 	
-	void setPrerequis(List<IUnite> p) {
+	public void setPrerequis(List<IUnite> p) {
 		prerequis = p;
 	}
 
@@ -96,7 +96,7 @@ public class Unite implements IUnite {
 		return type;
 	}
 
-	void setType(Type t) {
+	public void setType(Type t) {
 		type = t;
 	}
 	
@@ -105,7 +105,7 @@ public class Unite implements IUnite {
 		return tempsConstruc;
 	}
 
-	void setTempsConstruc(int tempsConstruc) {
+	public void setTempsConstruc(int tempsConstruc) {
 		this.tempsConstruc = tempsConstruc;
 	}	
 
@@ -113,7 +113,7 @@ public class Unite implements IUnite {
 		return ressourceProd;
 	}
 
-	void setRessourceProd(List<IRessource> ressourceProd) {
+	public void setRessourceProd(List<IRessource> ressourceProd) {
 		this.ressourceProd = ressourceProd;
 	}
 
@@ -144,6 +144,7 @@ public class Unite implements IUnite {
 		}
 		return 0;
 	}
+
 
 
 	
