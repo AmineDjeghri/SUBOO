@@ -54,8 +54,9 @@ public class Etat implements IEtat {
 		
 	}
 
-	public Etat(IEtat etatPrecedent) {
+	public Etat(IEtat etatPrecedent, IAction action) {
 		this.etatPrecedent = etatPrecedent;
+		this.action = action;
 	}
 	
 	public List<IRessource> getRessources() {
@@ -68,7 +69,7 @@ public class Etat implements IEtat {
 	public IEtat addAction(IAction action) throws IOException {
 		
 
-		Etat next = new Etat(this);
+		Etat next = new Etat(this, action);
 		
 		etatsSuivants.add(next);
 		
@@ -82,7 +83,7 @@ public class Etat implements IEtat {
 		if(action.getConstructedUnite()!=null)
 		{
 			//On cherche qui va construire
-			
+			/*
 			for(IEntite e : estComposeDe)
 			{
 				if(e.isDisponible())
@@ -96,17 +97,19 @@ public class Etat implements IEtat {
 				}
 					
 			}
+			*/
 			
 			//Ajout unite à la liste
 			le.add(EntiteFactory.createEntite(action.getConstructedUnite()));
-			
+			/*
 			//On modifie les ressources en fonction
 			for(int i=0;i<lr.size();i++)
 			{
 				lr.get(i).setValeur(ressources.get(i).getValeur()-action.getConstructedUnite().getCout().get(i).getValeur());
 			}
+			*/
 		}
-		
+		/*
 		//On ajoute les ressources produite
 		for(IEntite e: estComposeDe)
 		{
@@ -119,18 +122,20 @@ public class Etat implements IEtat {
 						*mult);
 			}
 		}
+		*/
 		
 		for(IEntite e : estComposeDe)
 		{
 			le.add(e.addTime(time));
 		}
-		
+		/*
 		//On remet le construteur en disponible dans l'etat courant
 		if(constructeur!=null)
 		{
 			constructeur.setDisponible();
 			constructeur.setTempsRestant(0);
 		}
+		*/
 		
 		
 		next.setEntite(le);
@@ -143,8 +148,10 @@ public class Etat implements IEtat {
 	public List<IAction> getBuildOrder() {
 		List<IAction> bo= new ArrayList<>();
 		
-		if(etatPrecedent!=null)
-			bo.addAll(etatPrecedent.getBuildOrder());
+		if(etatPrecedent!=null && etatPrecedent.getAction()!=null) {
+			bo=etatPrecedent.getBuildOrder();
+		}
+			
 		
 		bo.add(action);
 		
@@ -183,8 +190,7 @@ public class Etat implements IEtat {
 
 	@Override
 	public IAction getAction() {
-		// TODO Auto-generated method stub
-		return null;
+		return action;
 	}
 	
 	

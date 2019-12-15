@@ -71,7 +71,7 @@ public class Calculator implements ICalculator{
 		List<IEntite> listEntiteEtat = etat.getEntite();
 		IUnite unite = uniteManquante;
 		List<IUnite> prerequis = unite.getPrerequis();
-		if (prerequis.size()>0) {
+		if (prerequis!=null) {
 			for (int a = 0; a<prerequis.size(); a++) {//pour chaque prerequis je vais regarder si il est dans l'etat
 				boolean presente = false;//variable qui passe a true si le prerequis est present
 				for (IEntite ent : listEntiteEtat) {
@@ -109,9 +109,7 @@ public class Calculator implements ICalculator{
 		//On recupere la liste et quantité des unites presentes dans l'etat
 		List<IEntite> listEntiteEtat = etat.getEntite();
 		for (int j=0; j<listEntiteEtat.size();j++) {
-			System.out.println(listEntiteEtat.get(j).getIdentite().getNom());
 		}
-		System.out.println(listEntiteEtat);
 		
 		//ajout de chaque unité
 		for (int i=0; i<uniteObjectif.size(); i++) {
@@ -173,7 +171,6 @@ public class Calculator implements ICalculator{
 		etat=calculBO(uniteObjectif, ressourceObjectif, etat);
 		//initialisation de la list d'action a retourner
 		List<IAction> BO = etat.getBuildOrder();//demande a etat le BO final
-		
 		return (List<IAction>) BO; 
 	}
 	

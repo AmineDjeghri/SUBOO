@@ -10,7 +10,7 @@ public class CalculatorSingleton {
 	public static ICalculator getInstance()
 	{
 		if(calculator==null)
-			calculator = new CalculatorBouchon();
+			calculator = new Calculator();
 		return calculator;
 	}
 }
