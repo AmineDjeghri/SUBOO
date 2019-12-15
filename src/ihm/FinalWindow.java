@@ -24,6 +24,8 @@ public class FinalWindow extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setLocation(this.getLocation().x+200, this.getLocation().y);
 		
+		System.out.println(actions);
+		
 		
 		DefaultListModel sl = new DefaultListModel();
 		

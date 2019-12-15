@@ -67,7 +67,7 @@ public class Unite implements IUnite {
 	public List<IUnite> getConstructorsList() {
 		return construitPar;
 	}
-	void setConstructorsList(List<IUnite> construitPar) {
+	public void setConstructorsList(List<IUnite> construitPar) {
 		this.construitPar = construitPar;
 	}
 

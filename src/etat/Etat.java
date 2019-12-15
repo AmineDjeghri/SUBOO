@@ -150,10 +150,11 @@ public class Etat implements IEtat {
 		
 		if(etatPrecedent!=null && etatPrecedent.getAction()!=null) {
 			bo=etatPrecedent.getBuildOrder();
+			bo.add(action);
 		}
 			
 		
-		bo.add(action);
+		
 		
 		return bo;
 	}
