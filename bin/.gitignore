@@ -1,4 +1,5 @@
 /action/
+/bouchonTestCalculator/
 /bouchons/
 /calculator/
 /entite/
@@ -6,7 +7,5 @@
 /factory/
 /ihm/
 /itf/
-/version/
 /test/
-/TestCalculator/
-/bouchonTestCalculator/
+/version/
